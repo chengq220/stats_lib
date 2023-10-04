@@ -1,6 +1,5 @@
-from src.statistics.plot import Plots
+from src.statistics.plot import qq_plot
+from src.statistics.distributions import Bernoulli, Binomial_Distribution
 
-
-
-print("testing start")
-Plots.qq_plot([25,49,37,64,75])
+b = Binomial_Distribution(10, 0.5)
+b.visualize_pmf()
