@@ -1,6 +1,7 @@
 
 """
 @brief          A simple implementation of the selection sort algorithm
+                O(n^2)
 @param array    The array to be sorted
 @return         A sorted array
 """
@@ -15,3 +16,11 @@ def selection_sort(array):
         new_array[i] = new_array[low_idx]
         new_array[low_idx] = temp
     return new_array
+
+"""
+@brief          Merge sort algorithm
+                O(nlogn)
+@param array    The array to be sorted
+@return         A sorted array
+"""
+# def merge_sort(array):

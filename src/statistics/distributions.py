@@ -189,3 +189,16 @@ class Poisson_Distribution():
         plt.ylabel('Probability')
         plt.title('Poisson Distribution CDF')
         plt.savefig("poisson")
+
+class Normal_Distribution():
+    def __init__(self, mean, variance):
+        self.mean = mean
+        self.variance = variance
+        self.__upper = mean + 3 * variance ** (1/2)
+        self.__lower = mean - 3 * variance ** (1/2)
+
+    """
+    @brief  Estimate the cdf by taking the probability between 3 standard
+            deviation from the mean
+    """
+    def cdf(self, x1, x2):
