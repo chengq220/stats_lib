@@ -9,7 +9,7 @@ class LinkedNode():
             raise Exception("Value did not get initialized")
         return self.value
 
-    @static
+    @staticmethod
     def linkNode(first, second):
         first.next = second
         second.prev = first
@@ -26,13 +26,13 @@ class LinkedList():
     """
     @brief Add the node to the end of the linked list
     """
-    def addNode(self, value):
-        if(self.head is None):
+    def addNodeTail(self, value):
+        if(self.isEmpty()):
             self.head = LinkedNode(value)
             self.tail = self.head
         else:
             newNode = LinkedNode(value)
-            linkNode(self.tail, newNode)
+            LinkedNode.linkNode(self.tail, newNode)
             self.tail = newNode
         self.size = self.size + 1
 
@@ -41,23 +41,40 @@ class LinkedList():
     """
     def addNode(self, value, prev, next):
         newNode = LinkedNode(value)
-        linkNode(prev, newNode)
-        linkNode(newNode, next)
+        LinkedNode.linkNode(prev, newNode)
+        LinkedNode.linkNode(newNode, next)
+        self.size = self.size + 1
 
-    def getIndex(self, n):
+    """
+    @brief      Return the node at a given index
+    @param  n   The index of the desired node
+    """
+    def getNodeIndex(self, n):
         if(n < 0 or n > self.size):
             raise Exception("Index out of bound")
         if(n == 0):
-            return self.head.value;
-        else if(n == self.size-1):
-            return self.tail.value
+            return self.head
+        elif(n == self.size-1):
+            return self.tail
         else:
             ptr = self.head
             for i in range(n):
-                ptr = self.head.next
-            return ptr.value
+                ptr = ptr.next
+            return ptr
 
+    def isEmpty(self):
+        return self.size == 0
 
+    """
+    @brief  Override the print method
+    """
+    def __str__(self):
+        returnStr = ""
+        current = self.head
+        for i in range(self.size):
+            returnStr += current.value + " "
+            current = current.next
+        return returnStr
 
 """
 @brief A stack implementation using arrays
@@ -71,16 +88,16 @@ class Stack():
         self.__array.append(item)
         self.__index = self.__index + 1
 
-    def pop_back(self, item):
-        if(self.index == 0):
+    def pop_back(self):
+        if(self.__array == 0):
             raise Exception("Attempting to pop from empty stack")
-        self.__array.pop(self.__index)
+        self.__array.pop(self.__index-1)
         self.__index = self.__index - 1
 
     def peek(self):
-        if(self.index == 0):
+        if(self.__index == 0):
             raise Exception("Attempting to peek into an empty stack")
-        return array[self.__index]
+        return self.__array[self.__index-1]
 
 # class queue():
 #     def __init__(self):

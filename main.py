@@ -1,5 +1,24 @@
-from src.statistics.plot import qq_plot
-from src.statistics.distributions import Bernoulli, Binomial_Distribution
+from src.array_op.containers import LinkedList, Stack
 
-b = Binomial_Distribution(10, 0.5)
-b.visualize_pmf()
+l = LinkedList()
+l.addNodeTail("a")
+l.addNodeTail("b")
+l.addNodeTail("c")
+l.addNodeTail("d")
+l.addNodeTail("e")
+prev = l.getNodeIndex(1)
+next = l.getNodeIndex(2)
+l.addNode("z", prev, next)
+print(l)
+print(l.size)
+s = Stack()
+s.push_back(1)
+s.push_back(2)
+s.push_back(3)
+print(s.peek())
+s.pop_back()
+print(s.peek())
+s.pop_back()
+print(s.peek())
+s.pop_back()
+print(s.peek())
