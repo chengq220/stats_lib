@@ -1,11 +1,11 @@
 class LinkedNode():
     def __init__(self, value=None):
         self.value = value
-        self.prev = None
-        self.next = None
+        self.prev = self
+        self.next = self
 
-    def getValue():
-        if(value is None):
+    def getValue(self):
+        if(self.value is None):
             raise Exception("Value did not get initialized")
         return self.value
 
@@ -13,6 +13,13 @@ class LinkedNode():
     def linkNode(first, second):
         first.next = second
         second.prev = first
+
+    @staticmethod
+    def unlinkNode(node):
+        prev = node.prev
+        next = node.next
+        prev.next = next
+        next.prev = prev
 
 """
 @brief A doubly linked list
@@ -61,6 +68,19 @@ class LinkedList():
             for i in range(n):
                 ptr = ptr.next
             return ptr
+
+    """
+    @brief      Remove the node at a given index
+    @param  n   The index of the node to be removed
+    """
+    def removeNodeIndex(self, n):
+        if(n == 0):
+            self.head = self.head.next
+        elif(n == self.size-1):
+            self.tail = self.tail.prev
+        else:
+            LinkedNode.unlinkNode(self.getNodeIndex(n))
+
 
     def isEmpty(self):
         return self.size == 0
