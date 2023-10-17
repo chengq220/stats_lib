@@ -138,6 +138,9 @@ class Stack():
             raise Exception("Attempting to peek into an empty stack")
         return self.__array[self.__index-1]
 
+    def isEmpty(self):
+        return self.__index == 0
+
 """
 @brief  A linked list implementation of Queue structure
 """
@@ -193,5 +196,4 @@ class Queue():
     def __str__(self):
         returnStr = self.list.__str__()
         return returnStr
-
 

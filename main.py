@@ -1,26 +1,6 @@
-from src.array_op.containers import LinkedList, Stack, Queue
+from src.util.parser import parser
 
-l = LinkedList()
-l.addNodeTail("a")
-l.addNodeTail("b")
-l.addNodeTail("c")
-l.addNodeTail("d")
-l.addNodeTail("e")
-prev = l.getNodeIndex(1)
-next = l.getNodeIndex(2)
-l.addNode("z", prev, next)
-print(l)
-print(l.size)
-l.removeNodeIndex(3)
-print(l)
-print(l.size)
-l.removeNodeIndex(0)
-print(l)
-print(l.size)
-q = Queue()
-q.addBack(1)
-q.addFront(0)
-q.addFront(2)
-q.addBack(3)
-print(q)
+p = parser('a+b*c-(d/e+f*g*h)')
+answer = "abc*+de/fg*h*+-"
+print(p.getExpression() == answer)
 
