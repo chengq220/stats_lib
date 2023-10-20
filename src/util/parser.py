@@ -1,7 +1,5 @@
 from src.array_op.containers import Stack
-"""
-@brief    Parser for mathematical equations that uses postfix stack implementation
-"""
+#GLOBAL CONSTANT
 PRECEDENCE = {
     '+': 1,
     '-': 1,
@@ -9,9 +7,12 @@ PRECEDENCE = {
     '/': 2,
     '%': 3,
     '^': 3,
-    '(': 100,
+    '(': 0,
     ')': 0
 }
+"""
+@brief    Parser for mathematical equations that uses postfix stack implementation
+"""
 class parser:
     def __init__(self, string, vars={}):
         self.expression = self.__post_fix_parse(string)
@@ -27,11 +28,12 @@ class parser:
                 if(i != ')'):
                     if(stack.isEmpty() or i == '('):
                         stack.push_back(i)
-                    elif PRECEDENCE.get(stack.peek()) > PRECEDENCE.get(i):
+                    elif PRECEDENCE.get(stack.peek()) < PRECEDENCE.get(i):
                         stack.push_back(i)
-                    else:
-                        postfix += stack.peek()
-                        stack.pop_back()
+                    else: # <=
+                        while not stack.isEmpty() and PRECEDENCE.get(stack.peek()) >= PRECEDENCE.get(i):
+                            postfix += stack.peek()
+                            stack.pop_back()
                         stack.push_back(i)
                 else:
                     while(stack.peek() != '('):
