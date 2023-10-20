@@ -16,6 +16,7 @@ PRECEDENCE = {
 class parser:
     def __init__(self, string, vars={}):
         self.expression = self.__post_fix_parse(string)
+        self.var = vars
 
     def __post_fix_parse(self, expression):
         processed_exp = expression.strip()
@@ -40,12 +41,33 @@ class parser:
                         if (stack.peek() != '('):
                             postfix += stack.peek()
                         stack.pop_back()
+                    stack.pop_back()
         while not stack.isEmpty():
             if (stack.peek() != '('):
                 postfix += stack.peek()
             stack.pop_back()
         return postfix
 
-    def getExpression(self):
+    def getPostOrderExpression(self):
         return self.expression
+
+    def evaluate(self):
+        stack = Stack()
+        for i in self.expression:
+            if PRECEDENCE.get(i) is None:  # if it is an operand
+                stack.push_back(i)
+            else:
+                operand2 = stack.peek()
+                if self.var.get(str(operand2)) is not None:
+                    operand2 = self.var.get(str(operand2))
+                stack.pop_back()
+                operand1 = stack.peek()
+                if self.var.get(str(operand1)) is not None:
+                    operand1 = self.var.get(str(operand1))
+                stack.pop_back()
+                result = eval(str(operand1)+i+str(operand2))
+                stack.push_back(result)
+        return stack.peek()
+
+
 
