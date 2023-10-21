@@ -1,5 +1,5 @@
 from src.util.parser import parser
+from src.calculus.integration import integral_apprx
 
-p = parser('2+(x*1)-y',{'x':3, 'y':9})
-print(p.evaluate())
-
+approx = integral_apprx("x^2", 3, 10, 'x')
+print(approx)

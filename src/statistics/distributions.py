@@ -1,6 +1,7 @@
 from math import comb, factorial, e
 import matplotlib.pyplot as plt
 from src.array_op.list_operations import arange
+from src.calculus.integration import integral_apprx
 
 class Bernoulli():
     def __init__(self, p):
@@ -194,11 +195,12 @@ class Normal_Distribution():
     def __init__(self, mean, variance):
         self.mean = mean
         self.variance = variance
-        self.__upper = mean + 3 * variance ** (1/2)
-        self.__lower = mean - 3 * variance ** (1/2)
+        self.__upper = int(mean + 3 * variance ** (1/2))
+        self.__lower = int(mean - 3 * variance ** (1/2))
 
     """
     @brief  Estimate the cdf by taking the probability between 3 standard
             deviation from the mean
+            P(x1 < x < x2)
     """
     def cdf(self, x1, x2):
