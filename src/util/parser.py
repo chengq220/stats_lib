@@ -21,10 +21,9 @@ class parser:
 
 
     def __post_fix_parse(self, expression):
-        processed_exp = expression.strip()
         postfix = ""
         stack = Stack()
-        for i in processed_exp:
+        for i in expression:
             if PRECEDENCE.get(i) is None: #if it is an operand
                 postfix += i
             else: #if it is not an operand

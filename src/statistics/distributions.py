@@ -1,3 +1,4 @@
+import math
 from math import comb, factorial, e
 import matplotlib.pyplot as plt
 from src.array_op.list_operations import arange
@@ -199,8 +200,19 @@ class Normal_Distribution():
         self.__lower = int(mean - 3 * variance ** (1/2))
 
     """
-    @brief  Estimate the cdf by taking the probability between 3 standard
+    @brief  Estimate the cdf between two bounds
             deviation from the mean
             P(x1 < x < x2)
     """
     def cdf(self, x1, x2):
+        coeff = 1/math.sqrt(2 * math.pi * self.variance)
+        euler_coef = 2.7182818
+        denom = 2.0 * self.variance
+        tm = 2.0 * self.mean / (denom)
+        print(tm)
+        m_2 = (self.mean * 1.0) ** 2/ (denom)
+        print(m_2)
+        func = str(coeff) + "*" + str(euler_coef) + "^(" + str(tm) + "*x-x^2-" + str(m_2) + ")"
+        print(func)
+        exit()
+        return integral_apprx(func, x1, x2, 'x')
