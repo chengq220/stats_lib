@@ -200,19 +200,15 @@ class Normal_Distribution():
         self.__lower = int(mean - 3 * variance ** (1/2))
 
     """
-    @brief  Estimate the cdf between two bounds
-            deviation from the mean
+    @brief  Crude Approximation of the cdf between two bounds
             P(x1 < x < x2)
     """
     def cdf(self, x1, x2):
-        coeff = 1/math.sqrt(2 * math.pi * self.variance)
-        euler_coef = 2.7182818
-        denom = 2.0 * self.variance
-        tm = 2.0 * self.mean / (denom)
-        print(tm)
-        m_2 = (self.mean * 1.0) ** 2/ (denom)
-        print(m_2)
-        func = str(coeff) + "*" + str(euler_coef) + "^(" + str(tm) + "*x-x^2-" + str(m_2) + ")"
-        print(func)
-        exit()
+        coeff = int(math.sqrt(2 * math.pi * self.variance))
+        euler_coef = int(2.7182818)
+        denom = int(2.0 * self.variance)
+        tm = int(2.0 * self.mean)
+        m_2 = int((self.mean * 1.0) ** 2)
+        func = "(1/(" + str(coeff) + "*" + str(euler_coef) + "))" + "^(" + str(tm) + "/" + str(denom) + "*x-x^2-" + \
+               str(m_2) + "/" + str(denom) + ")"
         return integral_apprx(func, x1, x2, 'x')

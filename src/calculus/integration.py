@@ -12,6 +12,7 @@ def integral_apprx(func, a, b, var):
     delta_x = (b-a)/N
     steps = a
     approx = 0
+    print(func)
     while steps < b:
         c_val = p.evaluate()
         approx = approx + c_val

@@ -20,27 +20,33 @@ class parser:
         self.value = value
 
 
-    def __post_fix_parse(self, expression):
+    def __post_fix_parse(self, exp): #doesn't work for expression for things bigger than single digits
         postfix = ""
         stack = Stack()
-        for i in expression:
-            if PRECEDENCE.get(i) is None: #if it is an operand
-                postfix += i
+        i = 0
+        while(i < len(exp)):
+            c_exp = ""
+            while(exp[i] != " "):
+                c_exp += exp[i]
+                i = i+1
+            i = i+1
+            if PRECEDENCE.get(c_exp) is None: #if it is an operand
+                postfix += c_exp + " "
             else: #if it is not an operand
-                if(i != ')'):
-                    if(stack.isEmpty() or i == '('):
-                        stack.push_back(i)
-                    elif PRECEDENCE.get(stack.peek()) < PRECEDENCE.get(i):
-                        stack.push_back(i)
+                if(c_exp != ')'):
+                    if(stack.isEmpty() or c_exp == '('):
+                        stack.push_back(c_exp)
+                    elif PRECEDENCE.get(stack.peek()) < PRECEDENCE.get(c_exp):
+                        stack.push_back(c_exp)
                     else: # <=
-                        while not stack.isEmpty() and PRECEDENCE.get(stack.peek()) >= PRECEDENCE.get(i):
+                        while not stack.isEmpty() and PRECEDENCE.get(stack.peek()) >= PRECEDENCE.get(c_exp):
                             postfix += stack.peek()
                             stack.pop_back()
-                        stack.push_back(i)
+                        stack.push_back(c_exp)
                 else:
                     while(stack.peek() != '('):
                         if (stack.peek() != '('):
-                            postfix += stack.peek()
+                            postfix += stack.peek() + " "
                         stack.pop_back()
                     stack.pop_back()
         while not stack.isEmpty():
@@ -56,11 +62,17 @@ class parser:
         if len(self.expression) == 1:
             return self.value
         stack = Stack()
-        for i in self.expression:
-            if PRECEDENCE.get(i) is None:  # if it is an operand
-                stack.push_back(i)
+        index = 0
+        while index < len(self.expression):
+            c_exp = " "
+            while(not index == len(self.expression) and self.expression[index] != " "):
+                c_exp += self.expression[index]
+                index = index + 1
+            index = index + 1
+            if PRECEDENCE.get(c_exp[1:]) is None :  # if it is an operand
+                stack.push_back(c_exp)
             else:
-                operation = i
+                operation = c_exp[1:]
                 if operation == "^":
                     operation = "**"
                 operand2 = stack.peek()
